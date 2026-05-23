@@ -1,10 +1,17 @@
 const express = require('express');
-const OpenAI = require('openai');
 const router = express.Router();
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+// Simple keyword-based mock responses
+const responses = {
+  'hello': 'Hello! How can I help you with your trading today?',
+  'price': 'You can check live prices on the trading dashboard. All prices are real-time from our data feed.',
+  'deposit': 'To deposit funds, go to Dashboard → Deposit. We accept Bitcoin, USDT, and Ethereum.',
+  'withdraw': 'Withdrawals can be requested from Dashboard → Withdraw. Minimum withdrawal is $10.',
+  'kyc': 'KYC verification is required for deposits over $1000. Upload your documents in Dashboard → KYC.',
+  'leverage': 'We offer leverage up to 1:2000. You can adjust leverage in account settings.',
+  'support': 'Our support team is available 24/7. Contact us at support@velox.com',
+  'default': 'Thank you for your message. Our team will assist you shortly. For urgent issues, email support@velox.com'
+};
 
 router.post('/ask', async (req, res) => {
   const { message } = req.body;
@@ -13,20 +20,17 @@ router.post('/ask', async (req, res) => {
     return res.status(400).json({ reply: "Please provide a message." });
   }
   
-  try {
-    const response = await openai.completions.create({
-      model: "gpt-3.5-turbo-instruct",
-      prompt: message,
-      max_tokens: 200,
-      temperature: 0.7,
-    });
-    
-    const reply = response.choices[0].text.trim();
-    res.json({ reply });
-  } catch (err) {
-    console.error('OpenAI error:', err);
-    res.status(500).json({ reply: "Sorry, I'm having trouble right now. Please try again later." });
+  const lowerMsg = message.toLowerCase();
+  let reply = responses.default;
+  
+  for (const [keyword, response] of Object.entries(responses)) {
+    if (lowerMsg.includes(keyword)) {
+      reply = response;
+      break;
+    }
   }
+  
+  res.json({ reply });
 });
 
 module.exports = router;
