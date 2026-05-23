@@ -72,11 +72,11 @@ app.use('/api/orders', orderRoutes);
 app.use('/api/alerts', alertRoutes);
 app.use('/api/api-keys', apiKeyRoutes);
 app.use('/api/password-reset', passwordResetRoutes);
-app.use('/api/2fa', twoFactorRoutes);
-app.use('/api/fiat', fiatPaymentRoutes);
-app.use('/api/swap', swapRoutes);
-app.use('/api/leverage', leverageRoutes);
-app.use('/api/logs', logRoutes);
+//app.use('/api/2fa', twoFactorRoutes);
+//app.use('/api/fiat', fiatPaymentRoutes);
+//app.use('/api/swap', swapRoutes);
+//app.use('/api/leverage', leverageRoutes);
+//app.use('/api/logs', logRoutes);
 
 marketFeed(io);
 startWebSocketStream(io);
