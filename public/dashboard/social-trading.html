@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Social Trading | Velox</title>
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+<div class="dashboard-container">
+  <aside class="sidebar">
+    <div class="logo"><img src="/assets/svg/logo.svg" width="28"> Velox</div>
+    <nav>
+      <a href="/dashboard/overview"><i class="fas fa-tachometer-alt"></i> Overview</a>
+      <a href="/dashboard/trading"><i class="fas fa-chart-line"></i> Trading</a>
+      <a href="/dashboard/deposits"><i class="fas fa-arrow-down"></i> Deposit</a>
+      <a href="/dashboard/withdrawals"><i class="fas fa-arrow-up"></i> Withdraw</a>
+      <a href="/dashboard/history"><i class="fas fa-history"></i> History</a>
+      <a href="/dashboard/kyc"><i class="fas fa-id-card"></i> KYC</a>
+      <a href="/dashboard/courses"><i class="fas fa-graduation-cap"></i> Courses</a>
+      <a href="/dashboard/signals"><i class="fas fa-robot"></i> AI Signals</a>
+      <a href="/dashboard/social-trading" class="active"><i class="fas fa-users"></i> Social Trading</a>
+      <a href="/dashboard/alerts"><i class="fas fa-bell"></i> Alerts</a>
+      <a href="/dashboard/api-keys"><i class="fas fa-key"></i> API Keys</a>
+      <a href="/dashboard/swap"><i class="fas fa-exchange-alt"></i> Swap Rates</a>
+      <a href="/dashboard/settings"><i class="fas fa-cog"></i> Settings</a>
+    </nav>
+  </aside>
+  <main class="main-content">
+    <div class="top-bar-dash">
+      <span id="userEmail">Loading...</span>
+      <span>Balance: $<span id="balance">0</span></span>
+      <button id="logoutBtn" class="btn-outline">Logout</button>
+    </div>
+    <h2>Top Traders Leaderboard</h2>
+    <ul id="topTradersList"></ul>
+    <h2>Copy Trading Settings</h2>
+    <p>Select a trader above to copy their trades automatically.</p>
+  </main>
+</div>
+<script src="/js/dashboard.js"></script>
+<script>
+  (async () => {
+    const res = await fetch('/api/social/top');
+    const traders = await res.json();
+    document.getElementById('topTradersList').innerHTML = traders.map(t => `
+      <li>
+        Trader ID: ${t._id} - Profit: $${t.totalProfit}
+        <button onclick="copyTrader('${t._id}')">Copy</button>
+      </li>
+    `).join('');
+  })();
+  async function copyTrader(traderId) {
+    const quantity = prompt('How many lots to copy?', '0.01');
+    if (quantity) {
+      await fetch(`/api/social/copy/${traderId}`, { method:'POST', headers:{'Content-Type':'application/json','x-auth-token':localStorage.getItem('token')}, body:JSON.stringify({quantity:parseFloat(quantity)}) });
+      alert('Now copying this trader');
+    }
+  }
+</script>
+</body>
+</html>

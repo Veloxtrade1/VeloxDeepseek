@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Educational Courses | Velox</title>
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+<div class="dashboard-container">
+  <aside class="sidebar">
+    <div class="logo"><img src="/assets/svg/logo.svg" width="28"> Velox</div>
+    <nav>
+      <a href="/dashboard/overview"><i class="fas fa-tachometer-alt"></i> Overview</a>
+      <a href="/dashboard/trading"><i class="fas fa-chart-line"></i> Trading</a>
+      <a href="/dashboard/deposits"><i class="fas fa-arrow-down"></i> Deposit</a>
+      <a href="/dashboard/withdrawals"><i class="fas fa-arrow-up"></i> Withdraw</a>
+      <a href="/dashboard/history"><i class="fas fa-history"></i> History</a>
+      <a href="/dashboard/kyc"><i class="fas fa-id-card"></i> KYC</a>
+      <a href="/dashboard/courses" class="active"><i class="fas fa-graduation-cap"></i> Courses</a>
+      <a href="/dashboard/signals"><i class="fas fa-robot"></i> AI Signals</a>
+      <a href="/dashboard/social-trading"><i class="fas fa-users"></i> Social Trading</a>
+      <a href="/dashboard/alerts"><i class="fas fa-bell"></i> Alerts</a>
+      <a href="/dashboard/api-keys"><i class="fas fa-key"></i> API Keys</a>
+      <a href="/dashboard/swap"><i class="fas fa-exchange-alt"></i> Swap Rates</a>
+      <a href="/dashboard/settings"><i class="fas fa-cog"></i> Settings</a>
+    </nav>
+  </aside>
+  <main class="main-content">
+    <div class="top-bar-dash">
+      <span id="userEmail">Loading...</span>
+      <span>Balance: $<span id="balance">0</span></span>
+      <button id="logoutBtn" class="btn-outline">Logout</button>
+    </div>
+    <h2>Learning Center</h2>
+    <div id="coursesList"></div>
+  </main>
+</div>
+<script src="/js/dashboard.js"></script>
+<script>
+  (async () => {
+    const token = localStorage.getItem('token');
+    const res = await fetch('/api/courses');
+    const courses = await res.json();
+    const container = document.getElementById('coursesList');
+    container.innerHTML = courses.map(c => `
+      <div class="course-card">
+        <h3>${c.title}</h3>
+        <p>${c.description}</p>
+        <p><strong>Level:</strong> ${c.level} | <strong>Duration:</strong> ${c.duration} min</p>
+        <button onclick="viewCourse('${c._id}')">Start Learning</button>
+      </div>
+    `).join('');
+  })();
+  function viewCourse(id) {
+    alert(`Course ${id} – interactive player would open. Implement video player, progress tracking.`);
+  }
+</script>
+</body>
+</html>

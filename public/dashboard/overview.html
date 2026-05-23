@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Overview | Velox</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="dashboard-container">
+  <aside class="sidebar">
+    <div class="logo"><img src="/assets/svg/logo.svg" width="28" alt="Velox"> Velox</div>
+    <nav>
+      <a href="/dashboard/overview" class="active"><i class="fas fa-tachometer-alt"></i> Overview</a>
+      <a href="/dashboard/trading"><i class="fas fa-chart-line"></i> Trading</a>
+      <a href="/dashboard/deposits"><i class="fas fa-arrow-down"></i> Deposit</a>
+      <a href="/dashboard/withdrawals"><i class="fas fa-arrow-up"></i> Withdraw</a>
+      <a href="/dashboard/history"><i class="fas fa-history"></i> History</a>
+      <a href="/dashboard/kyc"><i class="fas fa-id-card"></i> KYC</a>
+      <a href="/dashboard/courses"><i class="fas fa-graduation-cap"></i> Courses</a>
+      <a href="/dashboard/signals"><i class="fas fa-robot"></i> AI Signals</a>
+      <a href="/dashboard/social-trading"><i class="fas fa-users"></i> Social Trading</a>
+      <a href="/dashboard/alerts"><i class="fas fa-bell"></i> Alerts</a>
+      <a href="/dashboard/api-keys"><i class="fas fa-key"></i> API Keys</a>
+      <a href="/dashboard/swap"><i class="fas fa-exchange-alt"></i> Swap Rates</a>
+      <a href="/dashboard/settings"><i class="fas fa-cog"></i> Settings</a>
+    </nav>
+  </aside>
+  <main class="main-content">
+    <div class="top-bar-dash">
+      <span id="userEmail">Loading...</span>
+      <span>Balance: $<span id="balance">0</span></span>
+      <button id="logoutBtn" class="btn-outline">Logout</button>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card">Equity: $<span id="equity">0</span></div>
+      <div class="stat-card">Margin: $<span id="margin">0</span></div>
+      <div class="stat-card">Free Margin: $<span id="freeMargin">0</span></div>
+      <div class="stat-card">Margin Level: <span id="marginLevel">0</span>%</div>
+    </div>
+    <div class="chart-container">
+      <canvas id="equityChart" width="400" height="200"></canvas>
+    </div>
+    <div class="recent-orders">
+      <h3>Recent Orders</h3>
+      <ul id="recentOrders"></ul>
+    </div>
+    <div class="open-positions">
+      <h3>Open Positions</h3>
+      <ul id="positionsList"></ul>
+    </div>
+  </main>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/dashboard.js"></script>
+<script>
+  // Equity chart
+  new Chart(document.getElementById('equityChart'), {
+    type: 'line',
+    data: {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+      datasets: [{
+        label: 'Equity',
+        data: [10000, 10500, 10200, 10800, 11200, 11500],
+        borderColor: '#00B4AA',
+        fill: false
+      }]
+    }
+  });
+  // Load real positions & orders
+  (async () => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+    const posRes = await fetch('/api/account/positions', { headers: { 'x-auth-token': token } });
+    const positions = await posRes.json();
+    const posList = document.getElementById('positionsList');
+    if (posList) posList.innerHTML = positions.map(p => `<li>${p.symbol} | ${p.quantity} lots @ ${p.avgPrice}</li>`).join('');
+    const ordRes = await fetch('/api/account/orders', { headers: { 'x-auth-token': token } });
+    const orders = await ordRes.json();
+    const recentList = document.getElementById('recentOrders');
+    if (recentList) recentList.innerHTML = orders.slice(0,5).map(o => `<li>${o.side.toUpperCase()} ${o.quantity} ${o.symbol} @ ${o.price} (${new Date(o.createdAt).toLocaleString()})</li>`).join('');
+  })();
+</script>
+</body>
+</html>

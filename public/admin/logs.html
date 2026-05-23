@@ -1,0 +1,3 @@
+<!DOCTYPE html>
+<html><head><title>Audit Logs</title><link rel="stylesheet" href="/css/admin.css"></head>
+<body><div class="admin-wrapper"><aside class="admin-sidebar"></aside><div class="admin-content"><h2>System Logs</h2><table class="admin-table"><thead><tr><th>Time</th><th>User</th><th>Action</th><th>Details</th><th>IP</th></tr></thead><tbody id="logsTable"></tbody></table></div></div><script>fetch('/api/logs',{headers:{'admin-key':localStorage.getItem('adminKey')}}).then(r=>r.json()).then(logs=>{document.getElementById('logsTable').innerHTML=logs.map(l=>`<tr><td>${new Date(l.createdAt).toLocaleString()}</td><td>${l.userId?.email||'system'}</td><td>${l.action}</td><td>${JSON.stringify(l.details)}</td><td>${l.ip}</td></tr>`).join('');});</script></body></html>

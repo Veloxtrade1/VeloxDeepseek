@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard | Velox</title>
+  <link rel="stylesheet" href="/css/admin.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div class="admin-wrapper">
+  <aside class="admin-sidebar">
+    <div class="logo">Velox Admin</div>
+    <nav>
+      <a href="/admin/index" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+      <a href="/admin/users"><i class="fas fa-users"></i> Users</a>
+      <a href="/admin/deposits"><i class="fas fa-money-bill"></i> Deposits</a>
+      <a href="/admin/kyc"><i class="fas fa-id-card"></i> KYC</a>
+      <a href="/admin/employees"><i class="fas fa-user-tie"></i> Employees</a>
+      <a href="/admin/finance"><i class="fas fa-chart-pie"></i> Finance</a>
+      <a href="/admin/crm"><i class="fas fa-headset"></i> CRM</a>
+      <a href="/admin/reports"><i class="fas fa-file-alt"></i> Reports</a>
+      <a href="/admin/logs"><i class="fas fa-history"></i> Logs</a>
+      <a href="/admin/swaps"><i class="fas fa-exchange-alt"></i> Swap Rates</a>
+      <a href="/admin/settings"><i class="fas fa-cog"></i> Settings</a>
+    </nav>
+  </aside>
+  <div class="admin-content">
+    <div class="stats-row">
+      <div class="stat-box">Total Users: <span id="totalUsers">0</span></div>
+      <div class="stat-box">Total Deposits: $<span id="totalDeposits">0</span></div>
+      <div class="stat-box">Pending KYC: <span id="pendingKyc">0</span></div>
+      <div class="stat-box">Active Traders: <span id="activeTraders">0</span></div>
+    </div>
+    <div class="stats-row">
+      <div class="stat-box">Real Money Balance: $<span id="realBalance">0</span></div>
+      <div class="stat-box">Demo Balance: $<span id="demoBalance">0</span></div>
+      <div class="stat-box">Today's Volume: $<span id="todayVolume">0</span></div>
+    </div>
+  </div>
+</div>
+<script src="/js/admin.js"></script>
+</body>
+</html>

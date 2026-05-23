@@ -1,0 +1,26 @@
+version: '3'
+services:
+  mongodb:
+    image: mongo:6
+    restart: always
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27017:27017"
+  velox:
+    build: .
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+    environment:
+      MONGO_URI: mongodb://mongodb:27017/velox
+      PORT: 5000
+      JWT_SECRET: super_secret
+      TWELVE_DATA_API_KEY: ${TWELVE_DATA_API_KEY}
+      ADMIN_SECRET_KEY: admin123
+      FRONTEND_URL: http://localhost:5000
+    volumes:
+      - ./uploads:/app/uploads
+volumes:
+  mongo_data:

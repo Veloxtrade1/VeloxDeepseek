@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Deposit | Velox</title>
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div class="dashboard-container">
+  <aside class="sidebar">
+    <div class="logo"><img src="/assets/svg/logo.svg" width="28"> Velox</div>
+    <nav>
+      <a href="/dashboard/overview"><i class="fas fa-tachometer-alt"></i> Overview</a>
+      <a href="/dashboard/trading"><i class="fas fa-chart-line"></i> Trading</a>
+      <a href="/dashboard/deposits" class="active"><i class="fas fa-arrow-down"></i> Deposit</a>
+      <a href="/dashboard/withdrawals"><i class="fas fa-arrow-up"></i> Withdraw</a>
+      <a href="/dashboard/history"><i class="fas fa-history"></i> History</a>
+      <a href="/dashboard/kyc"><i class="fas fa-id-card"></i> KYC</a>
+      <a href="/dashboard/courses"><i class="fas fa-graduation-cap"></i> Courses</a>
+      <a href="/dashboard/signals"><i class="fas fa-robot"></i> AI Signals</a>
+      <a href="/dashboard/social-trading"><i class="fas fa-users"></i> Social Trading</a>
+      <a href="/dashboard/alerts"><i class="fas fa-bell"></i> Alerts</a>
+      <a href="/dashboard/api-keys"><i class="fas fa-key"></i> API Keys</a>
+      <a href="/dashboard/swap"><i class="fas fa-exchange-alt"></i> Swap Rates</a>
+      <a href="/dashboard/settings"><i class="fas fa-cog"></i> Settings</a>
+    </nav>
+  </aside>
+  <main class="main-content">
+    <div class="top-bar-dash">
+      <span id="userEmail">Loading...</span>
+      <span>Balance: $<span id="balance">0</span></span>
+      <button id="logoutBtn" class="btn-outline">Logout</button>
+    </div>
+    <h2>Deposit Funds</h2>
+    <div class="deposit-methods">
+      <div class="method" id="btcMethod">
+        <img src="/assets/svg/btc.svg" alt="Bitcoin">
+        <h3>Bitcoin (BTC)</h3>
+        <p>Min 0.001 BTC</p>
+      </div>
+      <div class="method" id="usdtMethod">
+        <img src="/assets/svg/usdt.svg" alt="USDT">
+        <h3>Tether (USDT)</h3>
+        <p>TRC20 / ERC20</p>
+      </div>
+      <div class="method" id="ethMethod">
+        <img src="/assets/svg/eth.svg" alt="Ethereum">
+        <h3>Ethereum (ETH)</h3>
+        <p>ERC20</p>
+      </div>
+      <div class="method" id="stripeMethod">
+        <i class="fab fa-stripe-s" style="font-size:48px; color:#635bff;"></i>
+        <h3>Credit Card (Stripe)</h3>
+        <p>Visa / Mastercard</p>
+      </div>
+    </div>
+    <div id="depositModal" class="modal">
+      <h3>Deposit Instructions</h3>
+      <p>Send funds to address:</p>
+      <p id="depositAddress" style="font-weight:bold;word-break:break-all;"></p>
+      <img id="qrCode" width="150">
+      <button onclick="copyText('depositAddress')">Copy Address</button>
+      <button onclick="closeModal()">Close</button>
+    </div>
+  </main>
+</div>
+<script src="/js/dashboard.js"></script>
+</body>
+</html>

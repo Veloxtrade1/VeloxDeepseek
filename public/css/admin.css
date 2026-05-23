@@ -1,0 +1,15 @@
+.admin-wrapper { display: flex; min-height: 100vh; background: #F0F2F5; }
+.admin-sidebar { width: 280px; background: #1A2C3E; color: white; position: fixed; height: 100vh; }
+.admin-sidebar .logo { padding: 24px; font-size: 1.5rem; font-weight: 700; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.admin-sidebar nav a { display: flex; align-items: center; gap: 12px; padding: 14px 24px; color: #b0c4de; text-decoration: none; }
+.admin-sidebar nav a:hover, .admin-sidebar nav a.active { background: #00B4AA20; color: #00B4AA; }
+.admin-content { flex: 1; margin-left: 280px; padding: 24px; }
+.stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; margin-bottom: 32px; }
+.stat-box { background: white; border-radius: 16px; padding: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); }
+.admin-table { width: 100%; background: white; border-radius: 16px; overflow: hidden; border-collapse: collapse; }
+.admin-table th, .admin-table td { padding: 14px 16px; text-align: left; border-bottom: 1px solid #EFF2F8; }
+.admin-table th { background: #F8FAFE; font-weight: 600; }
+.btn-sm { padding: 6px 12px; font-size: 0.8rem; border-radius: 20px; background: var(--primary); color: white; border: none; cursor: pointer; }
+.search-bar { margin-bottom: 24px; display: flex; gap: 12px; }
+.search-bar input { flex: 1; padding: 10px 16px; border-radius: 40px; border: 1px solid #ddd; }
+@media (max-width: 768px) { .admin-sidebar { width: 100%; position: relative; height: auto; } .admin-content { margin-left: 0; } }

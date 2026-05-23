@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Management | Velox Admin</title>
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+<div class="admin-wrapper">
+  <aside class="admin-sidebar"><!-- same sidebar as index.html, with 'users' active --></aside>
+  <div class="admin-content">
+    <h2>All Users</h2>
+    <div class="search-bar"><input type="text" id="searchUser" placeholder="Search by email..."><button class="btn-sm">Search</button></div>
+    <table class="admin-table">
+      <thead><tr><th>Email</th><th>Full Name</th><th>Country</th><th>Balance</th><th>KYC</th><th>Demo/Real</th><th>Actions</th></tr></thead>
+      <tbody id="usersTable"></tbody>
+    </table>
+  </div>
+</div>
+<script src="/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>API Keys | Velox</title>
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+<div class="dashboard-container">
+  <aside class="sidebar">
+    <div class="logo"><img src="/assets/svg/logo.svg" width="28"> Velox</div>
+    <nav>
+      <a href="/dashboard/overview"><i class="fas fa-tachometer-alt"></i> Overview</a>
+      <a href="/dashboard/trading"><i class="fas fa-chart-line"></i> Trading</a>
+      <a href="/dashboard/deposits"><i class="fas fa-arrow-down"></i> Deposit</a>
+      <a href="/dashboard/withdrawals"><i class="fas fa-arrow-up"></i> Withdraw</a>
+      <a href="/dashboard/history"><i class="fas fa-history"></i> History</a>
+      <a href="/dashboard/kyc"><i class="fas fa-id-card"></i> KYC</a>
+      <a href="/dashboard/courses"><i class="fas fa-graduation-cap"></i> Courses</a>
+      <a href="/dashboard/signals"><i class="fas fa-robot"></i> AI Signals</a>
+      <a href="/dashboard/social-trading"><i class="fas fa-users"></i> Social Trading</a>
+      <a href="/dashboard/alerts"><i class="fas fa-bell"></i> Alerts</a>
+      <a href="/dashboard/api-keys" class="active"><i class="fas fa-key"></i> API Keys</a>
+      <a href="/dashboard/swap"><i class="fas fa-exchange-alt"></i> Swap Rates</a>
+      <a href="/dashboard/settings"><i class="fas fa-cog"></i> Settings</a>
+    </nav>
+  </aside>
+  <main class="main-content">
+    <div class="top-bar-dash">
+      <span id="userEmail">Loading...</span>
+      <span>Balance: $<span id="balance">0</span></span>
+      <button id="logoutBtn" class="btn-outline">Logout</button>
+    </div>
+    <h2>API Key Management</h2>
+    <form id="apiKeyForm">
+      <input type="text" id="keyName" placeholder="Key name (e.g., MyBot)" required>
+      <button type="submit">Generate New API Key</button>
+    </form>
+    <h3>Your API Keys</h3>
+    <ul id="apiKeysList"></ul>
+    <p class="warning">Keep your secret key secure. It will not be shown again.</p>
+  </main>
+</div>
+<script src="/js/dashboard.js"></script>
+<script src="/js/api-keys.js"></script>
+</body>
+</html>

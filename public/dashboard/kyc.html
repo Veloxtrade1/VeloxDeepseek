@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>KYC Verification | Velox</title>
+  <link rel="stylesheet" href="/css/dashboard.css">
+</head>
+<body>
+<div class="dashboard-container">
+  <aside class="sidebar">
+    <div class="logo"><img src="/assets/svg/logo.svg" width="28"> Velox</div>
+    <nav>
+      <a href="/dashboard/overview"><i class="fas fa-tachometer-alt"></i> Overview</a>
+      <a href="/dashboard/trading"><i class="fas fa-chart-line"></i> Trading</a>
+      <a href="/dashboard/deposits"><i class="fas fa-arrow-down"></i> Deposit</a>
+      <a href="/dashboard/withdrawals"><i class="fas fa-arrow-up"></i> Withdraw</a>
+      <a href="/dashboard/history"><i class="fas fa-history"></i> History</a>
+      <a href="/dashboard/kyc" class="active"><i class="fas fa-id-card"></i> KYC</a>
+      <a href="/dashboard/courses"><i class="fas fa-graduation-cap"></i> Courses</a>
+      <a href="/dashboard/signals"><i class="fas fa-robot"></i> AI Signals</a>
+      <a href="/dashboard/social-trading"><i class="fas fa-users"></i> Social Trading</a>
+      <a href="/dashboard/alerts"><i class="fas fa-bell"></i> Alerts</a>
+      <a href="/dashboard/api-keys"><i class="fas fa-key"></i> API Keys</a>
+      <a href="/dashboard/swap"><i class="fas fa-exchange-alt"></i> Swap Rates</a>
+      <a href="/dashboard/settings"><i class="fas fa-cog"></i> Settings</a>
+    </nav>
+  </aside>
+  <main class="main-content">
+    <div class="top-bar-dash">
+      <span id="userEmail">Loading...</span>
+      <span>Balance: $<span id="balance">0</span></span>
+      <button id="logoutBtn" class="btn-outline">Logout</button>
+    </div>
+    <h2>Identity Verification (KYC)</h2>
+    <div id="kycStatus">Loading status...</div>
+    <form id="kycForm" enctype="multipart/form-data">
+      <input type="text" name="fullName" placeholder="Full Name (as on ID)" required>
+      <input type="date" name="dob" required>
+      <select name="idType" required>
+        <option value="passport">Passport</option>
+        <option value="nationalId">National ID Card</option>
+        <option value="driversLicense">Driver's License</option>
+      </select>
+      <input type="text" name="idNumber" placeholder="ID Number" required>
+      <input type="text" name="address" placeholder="Current Address" required>
+      <label>Front side of ID:</label>
+      <input type="file" name="frontImage" accept="image/*" required>
+      <label>Back side of ID:</label>
+      <input type="file" name="backImage" accept="image/*" required>
+      <label>Selfie with ID:</label>
+      <input type="file" name="selfieImage" accept="image/*" required>
+      <label>Proof of Address (utility bill, bank statement):</label>
+      <input type="file" name="proofOfAddress" accept="image/*" required>
+      <button type="submit">Submit KYC</button>
+    </form>
+  </main>
+</div>
+<script src="/js/dashboard.js"></script>
+<script>
+  (async () => {
+    const token = localStorage.getItem('token');
+    const statusRes = await fetch('/api/kyc/status', { headers: { 'x-auth-token': token } });
+    const statusData = await statusRes.json();
+    document.getElementById('kycStatus').innerHTML = `<strong>Your KYC status: ${statusData.status}</strong>`;
+  })();
+</script>
+</body>
+</html>
